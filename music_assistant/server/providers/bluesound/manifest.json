@@ -1,0 +1,12 @@
+{
+  "type": "player",
+  "domain": "bluesound",
+  "name": "Bluesound",
+  "description": "Support for Bluesound players.",
+  "codeowners": ["@MarvinSchenkel"],
+  "requirements": ["xmltodict==0.13.0"],
+  "documentation": "",
+  "multi_instance": false,
+  "builtin": false,
+  "load_by_default": false
+}

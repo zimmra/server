@@ -92,3 +92,9 @@ class UnplayableMediaError(MusicAssistantError):
     """Error thrown when a MediaItem cannot be played properly."""
 
     error_code = 13
+
+
+class TimeoutError(MusicAssistantError):
+    """Error thrown when a timeout is detected."""
+
+    error_code = 14
