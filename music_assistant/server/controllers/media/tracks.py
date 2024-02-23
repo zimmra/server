@@ -378,10 +378,11 @@ class TracksController(MediaControllerBase[Track]):
         msg = "No Music Provider found that supports requesting similar tracks."
         raise UnsupportedFeaturedException(msg)
 
-    async def _add_library_item(self, item: Track) -> Track:
+    async def _add_library_item(self, item: Track, added_at: str = None) -> Track:
         """Add a new item record to the database."""
         track_artists = await self._get_artist_mappings(item)
         sort_artist = track_artists[0].sort_name
+        timestamp_added = datetime.strptime(added_at, "%Y-%m-%dT%H:%M:%SZ").timestamp() if added_at else int(utc_timestamp())
         new_item = await self.mass.music.database.insert(
             self.db_table,
             {
@@ -395,7 +396,7 @@ class TracksController(MediaControllerBase[Track]):
                 "provider_mappings": serialize_to_json(item.provider_mappings),
                 "artists": serialize_to_json(track_artists),
                 "sort_artist": sort_artist,
-                "timestamp_added": int(utc_timestamp()),
+                "timestamp_added": timestamp_added,
                 "timestamp_modified": int(utc_timestamp()),
             },
         )
